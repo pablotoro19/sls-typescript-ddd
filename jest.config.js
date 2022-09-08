@@ -1,4 +1,5 @@
 const { pathsToModuleNameMapper } = require('ts-jest');
+
 const { compilerOptions } = require('./tsconfig');
 
 module.exports = {
@@ -9,8 +10,4 @@ module.exports = {
   },
   verbose: true,
   preset: 'ts-jest',
-  moduleNameMapper: {
-    '!functions/(.*)$': '<rootDir>/src/functions/$1',
-    '!libs/(.*)$': '<rootDir>/src/libs/$1',
-  },
 };

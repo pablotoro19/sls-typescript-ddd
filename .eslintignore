@@ -14,3 +14,7 @@ coverage
 jest.config.js
 .eslintrc.js
 serverless.ts
+
+#migrations
+migrations
+database.js
