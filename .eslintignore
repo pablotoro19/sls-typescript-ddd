@@ -1,0 +1,16 @@
+# vscode 
+.vscode
+# build
+.esbuild
+build
+
+# node 
+node_modules
+
+# tests
+coverage
+
+# config files
+jest.config.js
+.eslintrc.js
+serverless.ts

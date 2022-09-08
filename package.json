@@ -1,0 +1,48 @@
+{
+  "name": "sls-motorbike-shop",
+  "version": "1.0.0",
+  "description": "Serverless motorbike shop",
+  "main": "serverless.ts",
+  "scripts": {
+    "devel": "serverless offline",
+    "build": "tsc --resolveJsonModule --outDir ./build",
+    "hello:http": "sls invoke local --function helloWorldHttp  --path src/functions/helloWorldHttp/mock.json",
+    "lint:check": "prettier --check ./src && tsc --noEmit && eslint '*/**/*.{js,ts}'",
+    "test": "NODE_ENV=test jest --resetMocks --forceExit --detectOpenHandles",
+    "test:coverage": "NODE_ENV=test jest --resetMocks --forceExit --collect-coverage"
+  },
+  "engines": {
+    "npm": "8.x.x",
+    "node": "16.x.x"
+  },
+  "devDependencies": {
+    "@serverless/typescript": "^3.21.0",
+    "@tsconfig/node16": "^1.0.3",
+    "@types/aws-lambda": "^8.10.102",
+    "@types/jest": "^27.5.1",
+    "@types/node": "^18.7.14",
+    "@typescript-eslint/eslint-plugin": "^5.36.1",
+    "@typescript-eslint/parser": "^5.36.1",
+    "aws-sdk": "^2.1208.0",
+    "eslint": "^8.23.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^27.0.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "jest": "^28.1.0",
+    "prettier": "^2.7.1",
+    "serverless": "^3.22.0",
+    "serverless-offline": "^8.3.1",
+    "serverless-plugin-typescript": "^2.1.2",
+    "ts-jest": "^28.0.8",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.0",
+    "typescript": "^4.8.2"
+  },
+  "dependencies": {
+    "ajv": "^8.11.0",
+    "dotenv": "^16.0.0",
+    "sequelize": "^6.9.0"
+  },
+  "author": "Pablo Toro (pablotoro.e@gmail.com)"
+}
