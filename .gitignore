@@ -17,3 +17,6 @@ build
 
 # tests
 coverage
+
+#offline
+offline/*
