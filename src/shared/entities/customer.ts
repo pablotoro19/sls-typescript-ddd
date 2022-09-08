@@ -46,7 +46,7 @@ class Customer extends Model {
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  static associate = (entities?: { [k: string]: unknown }): void => {};
+  static associate = (_entities?: { [k: string]: unknown }): void => {};
 }
 
 export default Customer;
