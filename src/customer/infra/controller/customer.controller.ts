@@ -1,9 +1,16 @@
+import Ajv from 'ajv';
 import { APIGatewayProxyResult } from 'aws-lambda';
 
 import { ApiError } from '../../../shared/helpers/errors/ApiError';
 import { errorHandler, successHandler } from '../../../shared/helpers/response';
 import { CustomerUseCase } from '../../application/customer.useCase';
 import { CustomerAttributes, CustomerModelAttributes } from '../../domain/customer.entity';
+import {
+  getCustomersBySchema,
+  createCustomerSchema,
+  updateCustomerSchema,
+  getCustomersWithCreditsSchema,
+} from '../schema';
 
 export class CustomerController {
   constructor(private customerUseCase: CustomerUseCase) {}
@@ -33,6 +40,17 @@ export class CustomerController {
 
   public getCustomersBy = async (filters?: CustomerAttributes): Promise<APIGatewayProxyResult> => {
     try {
+      const ajv = new Ajv({ allErrors: true });
+      const validate = ajv.compile(getCustomersBySchema);
+
+      if (!validate(filters)) {
+        throw new ApiError({
+          status: 422,
+          message: validate.errors?.[0]?.message ?? 'Validation error',
+          errorCode: 'ERROR_VALIDATION_ERROR',
+        });
+      }
+
       const customers = await this.customerUseCase.getCustomersBy(filters);
       return successHandler(customers);
     } catch (error: unknown) {
@@ -50,6 +68,17 @@ export class CustomerController {
     customerData: CustomerModelAttributes
   ): Promise<APIGatewayProxyResult> => {
     try {
+      const ajv = new Ajv({ allErrors: true });
+      const validate = ajv.compile(createCustomerSchema);
+
+      if (!validate(customerData)) {
+        throw new ApiError({
+          status: 422,
+          message: validate.errors?.[0]?.message ?? 'Validation error',
+          errorCode: 'ERROR_VALIDATION_ERROR',
+        });
+      }
+
       const customer = await this.customerUseCase.createCustomer(customerData);
       return successHandler(customer);
     } catch (error: unknown) {
@@ -68,6 +97,17 @@ export class CustomerController {
     customerData: CustomerModelAttributes
   ): Promise<APIGatewayProxyResult> => {
     try {
+      const ajv = new Ajv({ allErrors: true });
+      const validate = ajv.compile(updateCustomerSchema);
+
+      if (!validate(customerData)) {
+        throw new ApiError({
+          status: 422,
+          message: validate.errors?.[0]?.message ?? 'Validation error',
+          errorCode: 'ERROR_VALIDATION_ERROR',
+        });
+      }
+
       await this.customerUseCase.updateCustomer(conditions, customerData);
       const customer = await this.customerUseCase.getCustomerBy(conditions);
       return successHandler(customer);
@@ -97,10 +137,21 @@ export class CustomerController {
     }
   };
 
-  public getCustomersWithCredits = async (sort: {
-    [key: string]: string;
-  }): Promise<APIGatewayProxyResult> => {
+  public getCustomersWithCredits = async (
+    sort: CustomerAttributes
+  ): Promise<APIGatewayProxyResult> => {
     try {
+      const ajv = new Ajv({ allErrors: true });
+      const validate = ajv.compile(getCustomersWithCreditsSchema);
+
+      if (!validate(sort)) {
+        throw new ApiError({
+          status: 422,
+          message: validate.errors?.[0]?.message ?? 'Validation error',
+          errorCode: 'ERROR_VALIDATION_ERROR',
+        });
+      }
+
       const customersWithCredits = await this.customerUseCase.getCustomersWithCredits(sort);
       const customers = customersWithCredits.map(({ Credit, ...customer }) => {
         return { ...customer, creditAmount: Credit?.amount };
