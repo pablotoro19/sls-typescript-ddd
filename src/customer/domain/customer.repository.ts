@@ -1,3 +1,5 @@
+import { CreditInterface } from '../../credit/domain/credit.entity';
+
 import { CustomerInterface, CustomerAttributes, CustomerModelAttributes } from './customer.entity';
 
 export interface CustomerRepository {
@@ -9,4 +11,7 @@ export interface CustomerRepository {
     customerData: CustomerModelAttributes
   ): Promise<boolean>;
   deleteCustomer(id: number): Promise<boolean>;
+  findAllCustomersWithCredits(sort: {
+    [key: string]: string;
+  }): Promise<CustomerInterface & { Credit: CreditInterface }[]>;
 }

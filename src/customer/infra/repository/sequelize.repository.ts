@@ -1,5 +1,7 @@
-import { WhereOptions } from 'sequelize';
+import { Order, WhereOptions, literal } from 'sequelize';
+import { Literal } from 'sequelize/types/utils';
 
+import { CreditInterface } from '../../../credit/domain/credit.entity';
 import entities from '../../../shared/entities';
 import {
   CustomerInterface,
@@ -35,6 +37,7 @@ export class SequelizeRepository implements CustomerRepository {
   ): Promise<CustomerInterface> {
     try {
       const customer = await entities.Customer.create(customerData);
+      await entities.Credit.create({ customerId: customer.id });
       return customer.get({ plain: true }) as CustomerInterface;
     } catch (e) {
       console.error(e);
@@ -48,11 +51,11 @@ export class SequelizeRepository implements CustomerRepository {
   ): Promise<boolean> {
     try {
       const where = conditions as WhereOptions<CustomerAttributes>;
-      const [updatedInvoice] = await entities.Customer.update(customerData, {
+      const [updated] = await entities.Customer.update(customerData, {
         where,
       });
 
-      if (!updatedInvoice) {
+      if (!updated) {
         return false;
       }
 
@@ -73,5 +76,25 @@ export class SequelizeRepository implements CustomerRepository {
     }
 
     return true;
+  }
+
+  public async findAllCustomersWithCredits(creditSort: {
+    [key: string]: string;
+  }): Promise<CustomerInterface & { Credit: CreditInterface }[]> {
+    const sort: Order | (string | Literal)[][] = [];
+    Object.keys(creditSort).forEach((key: string): void => {
+      sort.push([literal(`"Credit.${key}"`), creditSort[key]]);
+    });
+
+    const order = sort as Order;
+    const customers = await entities.Customer.findAll({
+      include: [{ model: entities.Credit, required: true }],
+      order,
+    });
+
+    return customers.map((customer) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      return customer.get({ plain: true });
+    }) as CustomerInterface & { Credit: CreditInterface }[];
   }
 }

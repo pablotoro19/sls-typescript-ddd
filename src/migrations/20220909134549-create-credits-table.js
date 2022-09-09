@@ -2,7 +2,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable(
-      { tableName: 'Customers', schema: 'public' },
+      { tableName: 'Credits', schema: 'public' },
       {
         id: {
           allowNull: false,
@@ -10,22 +10,20 @@ module.exports = {
           primaryKey: true,
           type: Sequelize.INTEGER,
         },
-        name: {
-          type: Sequelize.TEXT,
-          allowNull: true,
-        },
-        email: {
-          type: Sequelize.TEXT,
+        customerId: {
+          type: Sequelize.INTEGER,
           allowNull: false,
-          unique: true,
+          references: {
+            model: 'Customers',
+            key: 'id',
+          },
+          onUpdate: 'CASCADE',
+          onDelete: 'RESTRICT',
         },
-        phone: {
-          type: Sequelize.TEXT,
-          allowNull: true,
-        },
-        address: {
-          type: Sequelize.TEXT,
-          allowNull: true,
+        amount: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          defaultValue: 0,
         },
         createdAt: {
           allowNull: false,
@@ -39,6 +37,6 @@ module.exports = {
     );
   },
   down: async (queryInterface) => {
-    await queryInterface.dropTable({ tableName: 'Customers', schema: 'public' });
+    await queryInterface.dropTable({ tableName: 'Credits', schema: 'public' });
   },
 };

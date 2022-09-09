@@ -26,4 +26,8 @@ export class CustomerUseCase {
   public deleteCustomer = async (id: number) => {
     return this.customerRepository.deleteCustomer(id);
   };
+
+  public getCustomersWithCredits = async (sort: { [key: string]: string }) => {
+    return this.customerRepository.findAllCustomersWithCredits(sort);
+  };
 }

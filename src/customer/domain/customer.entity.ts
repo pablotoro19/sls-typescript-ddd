@@ -3,6 +3,7 @@ export interface CustomerAttributes {
   name?: string;
   email?: string;
   phone?: string;
+  address?: string;
 }
 
 export interface CustomerModelAttributes extends CustomerAttributes {
@@ -10,6 +11,7 @@ export interface CustomerModelAttributes extends CustomerAttributes {
   name: string;
   email: string;
   phone: string;
+  address: string;
 }
 
 export interface CustomerInterface extends CustomerAttributes {

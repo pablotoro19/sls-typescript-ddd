@@ -79,6 +79,30 @@ const serverlessConfiguration: AWS = {
         },
       ],
     },
+    addAvailableCredit: {
+      handler: 'handler.addAvailableCredit',
+      timeout: 30,
+      events: [
+        {
+          httpApi: {
+            path: '/customers/{id}/credits',
+            method: 'post',
+          },
+        },
+      ],
+    },
+    getCustomersWithCredits: {
+      handler: 'handler.getCustomersWithCredits',
+      timeout: 30,
+      events: [
+        {
+          httpApi: {
+            path: '/customers/credits',
+            method: 'get',
+          },
+        },
+      ],
+    },
   },
   plugins: ['serverless-plugin-typescript', 'serverless-offline'],
 };

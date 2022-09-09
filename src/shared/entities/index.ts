@@ -3,6 +3,7 @@ import { Sequelize } from 'sequelize';
 
 import * as config from '../../config/database';
 
+import Credit from './credit';
 import Customer from './customer';
 
 const env: string = process.env.NODE_ENV || 'dev';
@@ -13,6 +14,7 @@ const { url } = dbConfig as { url: string };
 const sequelize = new Sequelize(url, dbConfig);
 
 const entities = {
+  Credit,
   Customer,
 };
 

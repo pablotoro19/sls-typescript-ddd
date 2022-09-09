@@ -7,8 +7,8 @@ import { CustomerController } from './controller/customer.controller';
 import { SequelizeRepository } from './repository/sequelize.repository';
 
 const sequelizeRepository = new SequelizeRepository();
-const userUseCase = new CustomerUseCase(sequelizeRepository);
-const customerController = new CustomerController(userUseCase);
+const customerUseCase = new CustomerUseCase(sequelizeRepository);
+const customerController = new CustomerController(customerUseCase);
 
 export const getCustomerById: APIGatewayProxyHandler = async (event) => {
   const { id } = event.pathParameters as { id: string };
@@ -16,12 +16,10 @@ export const getCustomerById: APIGatewayProxyHandler = async (event) => {
 };
 
 export const getCustomersBy: APIGatewayProxyHandler = async (event) => {
-  const filters = event.queryStringParameters as unknown as {
-    id?: number;
+  const filters = (event.queryStringParameters = {} as unknown as {
     name?: string;
-    phone: string;
     email?: string;
-  };
+  });
   return await customerController.getCustomersBy(filters);
 };
 
@@ -39,4 +37,14 @@ export const updateCustomerById: APIGatewayProxyHandler = async (event) => {
 export const deleteCustomer: APIGatewayProxyHandler = async (event) => {
   const { id } = event.pathParameters as { id: string };
   return await customerController.deleteCustomer(+id);
+};
+
+export const getCustomersWithCredits: APIGatewayProxyHandler = async (event) => {
+  const { amount = 'desc' } =
+    event?.queryStringParameters ||
+    ({} as unknown as {
+      amount?: string;
+    });
+
+  return await customerController.getCustomersWithCredits({ amount });
 };
