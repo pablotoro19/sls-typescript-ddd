@@ -25,8 +25,56 @@ const serverlessConfiguration: AWS = {
       events: [
         {
           httpApi: {
-            path: '/customer/{id}',
+            path: '/customers/{id}',
             method: 'get',
+          },
+        },
+      ],
+    },
+    getCustomersBy: {
+      handler: 'handler.getCustomersBy',
+      timeout: 30,
+      events: [
+        {
+          httpApi: {
+            path: '/customers',
+            method: 'get',
+          },
+        },
+      ],
+    },
+    createCustomer: {
+      handler: 'handler.createCustomer',
+      timeout: 30,
+      events: [
+        {
+          httpApi: {
+            path: '/customers',
+            method: 'post',
+          },
+        },
+      ],
+    },
+    updateCustomerById: {
+      handler: 'handler.updateCustomerById',
+      timeout: 30,
+      events: [
+        {
+          httpApi: {
+            path: '/customers/{id}',
+            method: 'put',
+          },
+        },
+      ],
+    },
+    deleteCustomer: {
+      handler: 'handler.deleteCustomer',
+      timeout: 30,
+      events: [
+        {
+          httpApi: {
+            path: '/customers/{id}',
+            method: 'delete',
           },
         },
       ],

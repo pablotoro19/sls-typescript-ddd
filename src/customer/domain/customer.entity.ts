@@ -14,4 +14,6 @@ export interface CustomerModelAttributes extends CustomerAttributes {
 
 export interface CustomerInterface extends CustomerAttributes {
   id: number;
+  readonly createdAt?: Date;
+  readonly updatedAt?: Date;
 }

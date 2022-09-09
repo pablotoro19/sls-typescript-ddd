@@ -1,11 +1,15 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Model, DataTypes, Sequelize } from 'sequelize';
 
-class Customer extends Model {
+import { CustomerModelAttributes } from '../../customer/domain/customer.entity';
+
+class Customer extends Model implements CustomerModelAttributes {
   public id?: number;
   public name!: string;
   public email!: string;
   public phone!: string;
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
 
   public static initialize = (sequelize: Sequelize): void => {
     Customer.init(
@@ -16,14 +20,14 @@ class Customer extends Model {
           primaryKey: true,
         },
         name: {
-          type: DataTypes.STRING(255),
+          type: DataTypes.TEXT,
           allowNull: true,
           validate: {
             len: [3, 255],
           },
         },
         email: {
-          type: DataTypes.STRING(150),
+          type: DataTypes.TEXT,
           allowNull: false,
           validate: {
             len: [3, 150],
@@ -31,11 +35,19 @@ class Customer extends Model {
           },
         },
         phone: {
-          type: DataTypes.STRING(30),
+          type: DataTypes.TEXT,
           allowNull: true,
           validate: {
             len: [3, 30],
           },
+        },
+        createdAt: {
+          allowNull: false,
+          type: DataTypes.DATE,
+        },
+        updatedAt: {
+          allowNull: false,
+          type: DataTypes.DATE,
         },
       },
       {

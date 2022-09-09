@@ -1,1 +1,7 @@
-export { getCustomerById } from './src/customer/infra/index';
+export {
+  getCustomerById,
+  getCustomersBy,
+  createCustomer,
+  updateCustomerById,
+  deleteCustomer,
+} from './src/customer/infra/index';

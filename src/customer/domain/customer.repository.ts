@@ -1,6 +1,12 @@
-import { CustomerInterface, CustomerModelAttributes } from './customer.entity';
+import { CustomerInterface, CustomerAttributes, CustomerModelAttributes } from './customer.entity';
 
 export interface CustomerRepository {
-  findOneCustomer(customerId: number): Promise<CustomerInterface>;
-  findAllCustomers(customerData: CustomerModelAttributes): Promise<CustomerInterface[]>;
+  findOneCustomer(conditions: CustomerAttributes): Promise<CustomerInterface | null>;
+  findAllCustomers(conditions?: CustomerAttributes): Promise<CustomerInterface[]>;
+  createCustomer(customerData: CustomerModelAttributes): Promise<CustomerInterface>;
+  updateCustomer(
+    conditions: CustomerAttributes,
+    customerData: CustomerModelAttributes
+  ): Promise<boolean>;
+  deleteCustomer(id: number): Promise<boolean>;
 }
