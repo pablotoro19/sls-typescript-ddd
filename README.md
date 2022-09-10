@@ -56,3 +56,7 @@ run tests
 npm run test
 npm run test:coverage
 ```
+
+A collection of ready-to-deploy [Serverless Framework](https://github.com/serverless/serverless) services.
+
+With love Pablo Toro (@pablotoro19) ⚡**️**
