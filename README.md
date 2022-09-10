@@ -27,6 +27,13 @@ Swagger Documentation (First time, up Docker)
 npm run swagger:run
 ```
 
+Deploy? You just have to push your code and the deploy workflows will be activated (Branch: Devel)
+Bonus: Test workflow.
+
+```bash
+git push origin devel
+```
+
 ## Quick Start
 
 Install Node Version Manager [NVM](https://github.com/nvm-sh/nvm).
