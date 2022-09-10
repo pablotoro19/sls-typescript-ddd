@@ -11,21 +11,6 @@ env:
   total-runners: 5
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '16'
-          registry-url: 'https://registry.npmjs.org'
-          scope: '@pablotoro19'
-      - uses: actions/cache@v2
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
-      - run: npm install
-      - run: npm run lint:check
   test:
     runs-on: ubuntu-latest
     steps:
@@ -41,18 +26,3 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
       - run: npm install
       - run: npm run test
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '16'
-          registry-url: 'https://registry.npmjs.org'
-          scope: '@pablotoro19'
-      - run: npm install
-      - run: npm run build
-
-      - name: Cleaning workspace
-        uses: AutoModality/action-clean@v1
-        if: ${{ always() }}
