@@ -80,7 +80,7 @@ export class CustomerController {
       }
 
       const customer = await this.customerUseCase.createCustomer(customerData);
-      return successHandler(customer);
+      return successHandler(customer, 202);
     } catch (error: unknown) {
       const { message, status, errorCode } = error as {
         message: string;
@@ -125,7 +125,7 @@ export class CustomerController {
   public deleteCustomer = async (id: number): Promise<APIGatewayProxyResult> => {
     try {
       const deleted = await this.customerUseCase.deleteCustomer(id);
-      return successHandler(deleted);
+      return successHandler(deleted, 204);
     } catch (error: unknown) {
       const { message, status, errorCode } = error as {
         message: string;
@@ -137,9 +137,9 @@ export class CustomerController {
     }
   };
 
-  public getCustomersWithCredits = async (
-    sort: CustomerAttributes
-  ): Promise<APIGatewayProxyResult> => {
+  public getCustomersWithCredits = async (sort: {
+    amount?: string;
+  }): Promise<APIGatewayProxyResult> => {
     try {
       const ajv = new Ajv({ allErrors: true });
       const validate = ajv.compile(getCustomersWithCreditsSchema);

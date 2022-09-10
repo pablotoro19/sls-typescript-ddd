@@ -29,5 +29,14 @@ export const updateCustomerById: APIGatewayProxyHandler = async (event) =>
 export const deleteCustomer: APIGatewayProxyHandler = async (event) =>
   customerController.deleteCustomer(+(event.pathParameters?.id ?? 0));
 
-export const getCustomersWithCredits: APIGatewayProxyHandler = async (event) =>
-  customerController.getCustomersWithCredits(event?.queryStringParameters || {});
+export const getCustomersWithCredits: APIGatewayProxyHandler = async (event) => {
+  const queryStringParameters =
+    (event?.queryStringParameters as {
+      amount?: string;
+    }) ||
+    ({} as unknown as {
+      amount?: string;
+    });
+
+  return customerController.getCustomersWithCredits(queryStringParameters);
+};

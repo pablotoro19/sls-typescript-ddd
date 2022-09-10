@@ -4,30 +4,30 @@ import { CustomerRepository } from '../domain/customer.repository';
 export class CustomerUseCase {
   constructor(private readonly customerRepository: CustomerRepository) {}
 
-  public getCustomerBy = async (conditions: CustomerAttributes) => {
+  public async getCustomerBy(conditions: CustomerAttributes) {
     return this.customerRepository.findOneCustomer(conditions);
-  };
+  }
 
-  public getCustomersBy = async (conditions?: CustomerAttributes) => {
+  public async getCustomersBy(conditions?: CustomerAttributes) {
     return this.customerRepository.findAllCustomers(conditions);
-  };
+  }
 
-  public createCustomer = async (customerData: CustomerModelAttributes) => {
+  public async createCustomer(customerData: CustomerModelAttributes) {
     return this.customerRepository.createCustomer(customerData);
-  };
+  }
 
-  public updateCustomer = async (
+  public async updateCustomer(
     conditions: CustomerAttributes,
     customerData: CustomerModelAttributes
-  ) => {
+  ) {
     return this.customerRepository.updateCustomer(conditions, customerData);
-  };
+  }
 
-  public deleteCustomer = async (id: number) => {
+  public async deleteCustomer(id: number) {
     return this.customerRepository.deleteCustomer(id);
-  };
+  }
 
-  public getCustomersWithCredits = async (sort: { [key: string]: string }) => {
+  public async getCustomersWithCredits(sort: { [key: string]: string }) {
     return this.customerRepository.findAllCustomersWithCredits(sort);
-  };
+  }
 }

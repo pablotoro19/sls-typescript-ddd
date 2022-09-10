@@ -6,9 +6,9 @@
   "scripts": {
     "devel": "serverless offline",
     "build": "tsc --resolveJsonModule --outDir ./build",
-    "hello:http": "sls invoke local --function helloWorldHttp  --path src/functions/helloWorldHttp/mock.json",
     "test": "NODE_ENV=test jest --resetMocks --forceExit --detectOpenHandles",
     "test:coverage": "NODE_ENV=test jest --resetMocks --forceExit --collect-coverage",
+    "test:console": "NODE_ENV=test jest --resetMocks --forceExit --detectOpenHandles",
     "db:migrate": "sequelize db:migrate",
     "db:migrate:status": "sequelize db:migrate:status",
     "db:undo": "sequelize db:migrate:undo",
@@ -19,9 +19,11 @@
     "node": "16.x.x"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.5.0",
     "@serverless/typescript": "^3.18.0",
     "@tsconfig/node16": "^1.0.2",
     "@types/aws-lambda": "^8.10.97",
+    "@types/faker": "^6.6.9",
     "@types/jest": "^27.5.1",
     "@types/node": "^17.0.34",
     "@types/uuid": "^8.3.4",
