@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Serverless motorbike shop",
   "main": "serverless.ts",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@pablotoro19"
+  },
   "scripts": {
     "devel": "serverless offline",
     "build": "tsc --resolveJsonModule --outDir ./build",
