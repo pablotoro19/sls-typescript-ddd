@@ -109,7 +109,7 @@ paths:
           required: true
           description: customer id
       responses:
-        '204':
+        '200':
           description: Customer deleted
           content:
             application/json:

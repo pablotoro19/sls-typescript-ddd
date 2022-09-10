@@ -19,6 +19,7 @@ export const createFakeCustomer = (
   withCredit = false
 ): CustomerInterface & { Credit?: CreditInterface } => {
   const customerId = id ?? faker.datatype.number({ min: 1 });
+  const credit: CreditInterface = createFakeCredit({ customerId });
 
   return {
     id: customerId,
@@ -28,7 +29,7 @@ export const createFakeCustomer = (
     address: address || faker.address.direction(),
     createdAt: faker.date.recent(),
     updatedAt: faker.date.recent(),
-    ...(withCredit && { Credit: createFakeCredit({ customerId }) }),
+    ...(withCredit && { Credit: credit }),
   };
 };
 

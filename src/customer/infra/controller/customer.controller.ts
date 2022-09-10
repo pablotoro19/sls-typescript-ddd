@@ -108,6 +108,15 @@ export class CustomerController {
         });
       }
 
+      const existingCustomer = await this.customerUseCase.getCustomerBy(conditions);
+      if (!existingCustomer) {
+        throw new ApiError({
+          status: 404,
+          message: 'Customer not found',
+          errorCode: 'ERROR_CUSTOMER_NOT_FOUND',
+        });
+      }
+
       await this.customerUseCase.updateCustomer(conditions, customerData);
       const customer = await this.customerUseCase.getCustomerBy(conditions);
       return successHandler(customer);
@@ -124,8 +133,17 @@ export class CustomerController {
 
   public deleteCustomer = async (id: number): Promise<APIGatewayProxyResult> => {
     try {
+      const customer = await this.customerUseCase.getCustomerBy({ id });
+      if (!customer) {
+        throw new ApiError({
+          status: 404,
+          message: 'Customer not found',
+          errorCode: 'ERROR_CUSTOMER_NOT_FOUND',
+        });
+      }
+
       const deleted = await this.customerUseCase.deleteCustomer(id);
-      return successHandler(deleted, 204);
+      return successHandler(deleted, 200);
     } catch (error: unknown) {
       const { message, status, errorCode } = error as {
         message: string;

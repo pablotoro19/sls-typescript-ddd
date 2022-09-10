@@ -7,6 +7,13 @@ jest.mock('./src/shared/entities', () => {
       update: jest.fn(),
       destroy: jest.fn(),
     },
+    Credit: {
+      findOne: jest.fn(),
+      findAll: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+      destroy: jest.fn(),
+    },
     sequelize: { query: jest.fn() },
   };
 });

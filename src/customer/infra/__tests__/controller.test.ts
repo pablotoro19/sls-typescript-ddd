@@ -186,7 +186,7 @@ describe('customer.Controller', () => {
       const mockedUpdateCustomer = jest.spyOn(CustomerUseCase.prototype, 'updateCustomer');
       mockedUpdateCustomer.mockResolvedValueOnce(true);
       const mockedGetCustomerBy = jest.spyOn(CustomerUseCase.prototype, 'getCustomerBy');
-      mockedGetCustomerBy.mockResolvedValueOnce(customer);
+      mockedGetCustomerBy.mockResolvedValue(customer);
       const { event, context, callback } = createAPIGatewayRequest({
         body,
         pathParameters: { id: String(customer.id) },
@@ -213,10 +213,8 @@ describe('customer.Controller', () => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { id, createdAt, updatedAt, ...rest } = customer;
       const body = rest as string;
-      const mockedUpdateCustomer = jest.spyOn(CustomerUseCase.prototype, 'updateCustomer');
-      mockedUpdateCustomer.mockImplementationOnce(() => {
-        throw new Error('Mocked Error');
-      });
+      const mockedGetCustomerBy = jest.spyOn(CustomerUseCase.prototype, 'getCustomerBy');
+      mockedGetCustomerBy.mockResolvedValueOnce(null);
       const { event, context, callback } = createAPIGatewayRequest({ body });
 
       const response = (await updateCustomerById(
@@ -224,10 +222,10 @@ describe('customer.Controller', () => {
         context,
         callback
       )) as APIGatewayProxyResult;
-      expect(response.statusCode).toBe(500);
+      expect(response.statusCode).toBe(404);
       expect(JSON.parse(response.body)).toMatchObject({
-        message: 'Mocked Error',
-        errorCode: 'ERROR_UNHANDLED_EXCEPTION',
+        message: 'Customer not found',
+        errorCode: 'ERROR_CUSTOMER_NOT_FOUND',
       });
     });
 
@@ -257,6 +255,9 @@ describe('customer.Controller', () => {
     it('should delete a customer', async () => {
       expect.assertions(2);
 
+      const customer = createFakeCustomer();
+      const mockedGetCustomerBy = jest.spyOn(CustomerUseCase.prototype, 'getCustomerBy');
+      mockedGetCustomerBy.mockResolvedValueOnce(customer);
       const mockedDeleteCustomer = jest.spyOn(CustomerUseCase.prototype, 'deleteCustomer');
       mockedDeleteCustomer.mockResolvedValueOnce(true);
       const { event, context, callback } = createAPIGatewayRequest({
@@ -264,26 +265,24 @@ describe('customer.Controller', () => {
       });
 
       const response = (await deleteCustomer(event, context, callback)) as APIGatewayProxyResult;
-      expect(response.statusCode).toBe(204);
+      expect(response.statusCode).toBe(200);
       expect(JSON.parse(response.body)).toBe(true);
     });
 
     it('should return an error', async () => {
       expect.assertions(2);
 
-      const mockedDeleteCustomer = jest.spyOn(CustomerUseCase.prototype, 'deleteCustomer');
-      mockedDeleteCustomer.mockImplementationOnce(() => {
-        throw new Error('Mocked Error');
-      });
+      const mockedGetCustomerBy = jest.spyOn(CustomerUseCase.prototype, 'getCustomerBy');
+      mockedGetCustomerBy.mockResolvedValueOnce(null);
       const { event, context, callback } = createAPIGatewayRequest({
         pathParameters: { id: String(faker.datatype.number({ min: 1 })) },
       });
 
       const response = (await deleteCustomer(event, context, callback)) as APIGatewayProxyResult;
-      expect(response.statusCode).toBe(500);
+      expect(response.statusCode).toBe(404);
       expect(JSON.parse(response.body)).toMatchObject({
-        message: 'Mocked Error',
-        errorCode: 'ERROR_UNHANDLED_EXCEPTION',
+        message: 'Customer not found',
+        errorCode: 'ERROR_CUSTOMER_NOT_FOUND',
       });
     });
   });
