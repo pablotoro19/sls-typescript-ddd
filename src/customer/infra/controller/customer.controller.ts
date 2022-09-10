@@ -80,7 +80,7 @@ export class CustomerController {
       }
 
       const customer = await this.customerUseCase.createCustomer(customerData);
-      return successHandler(customer, 202);
+      return successHandler(customer, 201);
     } catch (error: unknown) {
       const { message, status, errorCode } = error as {
         message: string;

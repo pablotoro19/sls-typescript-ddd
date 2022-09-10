@@ -1,0 +1,16 @@
+components:
+  responses:
+    NotFound:
+      description: The server can not find the resource
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                type: string
+                description: Error description
+                example: Resource not found
+              errorCode:
+                type: string
+                description: Error code
+                example: ERROR_RESOURCE_NOT_FOUND

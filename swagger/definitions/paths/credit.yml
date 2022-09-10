@@ -1,0 +1,25 @@
+paths:
+  /customers/{id}/credits:
+    post:
+      tags:
+        - Credit
+      summary: Add credits to customer
+      requestBody:
+        description: Amount to add to customer
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+                  example: 1500
+      responses:
+        '200':
+          description: Credits added to customer
+          content:
+            application/json:
+              schema:
+                type: boolean
+                example: true

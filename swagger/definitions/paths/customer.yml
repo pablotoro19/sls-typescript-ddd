@@ -1,0 +1,295 @@
+paths:
+  /customers/{id}:
+    get:
+      tags:
+        - Customer
+      summary: Get customer
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: number
+          required: true
+          description: customer id
+      responses:
+        '201':
+          description: Customer found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                    example: 1
+                  name:
+                    type: string
+                    example: Robin Hood
+                  email:
+                    type: string
+                    example: robin@test.es
+                  phone:
+                    type: string
+                    example: '+56987654321'
+                  address:
+                    type: string
+                    example: Av. El sol 123
+                  createdAt:
+                    type: string
+                    format: date-time
+                  updatedAt:
+                    type: string
+                    format: date-time
+        '404':
+          $ref: '../../components.yml#components/responses/NotFound'
+
+    put:
+      tags:
+        - Customer
+      summary: Update customer
+      requestBody:
+        description: Data to update a customer
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Robin Hood
+                email:
+                  type: string
+                  example: robin@test.es
+                phone:
+                  type: string
+                  example: '+56987654321'
+                address:
+                  type: string
+                  example: Av. El sol 123
+      responses:
+        '200':
+          description: Customer updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                    example: 1
+                  name:
+                    type: string
+                    example: Robin Hood
+                  email:
+                    type: string
+                    example: robin@test.es
+                  phone:
+                    type: string
+                    example: '+56987654321'
+                  address:
+                    type: string
+                    example: Av. El sol 123
+                  createdAt:
+                    type: string
+                    format: date-time
+                  updatedAt:
+                    type: string
+                    format: date-time
+
+    delete:
+      tags:
+        - Customer
+      summary: Delete a customer
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: number
+          required: true
+          description: customer id
+      responses:
+        '204':
+          description: Customer deleted
+          content:
+            application/json:
+              schema:
+                type: boolean
+                example: true
+
+  /customers:
+    get:
+      tags:
+        - Customer
+      summary: Get customers
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+          required: false
+          description: customer name
+        - in: query
+          name: email
+          schema:
+            type: string
+          required: false
+          description: customer email
+      responses:
+        '200':
+          description: Customers found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                      example: 1
+                    name:
+                      type: string
+                      example: Robin Hood
+                    email:
+                      type: string
+                      example: robin@test.es
+                    phone:
+                      type: string
+                      example: '+56987654321'
+                    address:
+                      type: string
+                      example: Av. El sol 123
+                    createdAt:
+                      type: string
+                      format: date-time
+                    updatedAt:
+                      type: string
+                      format: date-time
+
+    post:
+      tags:
+        - Customer
+      summary: Create customer
+      requestBody:
+        description: Data to create a customer
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Robin Hood
+                email:
+                  type: string
+                  example: robin@test.es
+                phone:
+                  type: string
+                  example: '+56987654321'
+                address:
+                  type: string
+                  example: Av. El sol 123
+      responses:
+        '201':
+          description: Customer created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                    example: 1
+                  name:
+                    type: string
+                    example: Robin Hood
+                  email:
+                    type: string
+                    example: robin@test.es
+                  phone:
+                    type: string
+                    example: '+56987654321'
+                  address:
+                    type: string
+                    example: Av. El sol 123
+                  createdAt:
+                    type: string
+                    format: date-time
+                  updatedAt:
+                    type: string
+                    format: date-time
+
+  /customers/{id}/credits:
+    post:
+      tags:
+        - Customer
+      summary: Add credits to customer
+      requestBody:
+        description: Amount to add to customer
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+                  example: 1500
+      responses:
+        '200':
+          description: Credits added to customer
+          content:
+            application/json:
+              schema:
+                type: boolean
+                example: true
+
+  /customers/credits:
+    get:
+      tags:
+        - Customer
+      summary: Get customers
+      parameters:
+        - in: query
+          name: amount
+          schema:
+            type: string
+            example: desc
+          required: false
+          description: field to sort customers
+      responses:
+        '200':
+          description: Customers with credit amount
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                      example: 1
+                    name:
+                      type: string
+                      example: Robin Hood
+                    email:
+                      type: string
+                      example: robin@test.es
+                    phone:
+                      type: string
+                      example: '+56987654321'
+                    address:
+                      type: string
+                      example: Av. El sol 123
+                    creditAmount:
+                      type: number
+                      example: 3000
+                    createdAt:
+                      type: string
+                      format: date-time
+                    updatedAt:
+                      type: string
+                      format: date-time

@@ -127,7 +127,7 @@ describe('customer.Controller', () => {
       const { event, context, callback } = createAPIGatewayRequest({ body });
 
       const response = (await createCustomer(event, context, callback)) as APIGatewayProxyResult;
-      expect(response.statusCode).toBe(202);
+      expect(response.statusCode).toBe(201);
       expect(JSON.parse(response.body)).toMatchObject({
         ...customer,
         createdAt: expect.any(String) as string,

@@ -1,0 +1,23 @@
+openapi: '3.0.2'
+info:
+  title: SLS Motorbike Shop API
+  version: 1.0.0
+  description: Serverless
+servers:
+  - url: http://localhost:3000
+    description: Development url
+tags:
+  - name: Customer
+    description: All about Customers
+  - name: Credit
+    description: All about Credits
+
+paths:
+  /customers/{id}:
+    $ref: './paths/customer.yml#paths/~1customers~1{id}'
+  /customers:
+    $ref: './paths/customer.yml#paths/~1customers'
+  /customers/credits:
+    $ref: './paths/customer.yml#paths/~1customers~1credits'
+  /customers/{id}/credits:
+    $ref: './paths/credit.yml#paths/~1customers~1{id}~1credits'

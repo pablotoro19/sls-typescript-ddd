@@ -15,7 +15,8 @@
     "db:migrate": "sequelize db:migrate",
     "db:migrate:status": "sequelize db:migrate:status",
     "db:undo": "sequelize db:migrate:undo",
-    "db:undo:all": "sequelize db:migrate:undo:all"
+    "db:undo:all": "sequelize db:migrate:undo:all",
+    "swagger:run": "docker run --rm -p 8080:8080 -e 'SWAGGER_JSON=/app/swagger.yml' -v $(pwd)/swagger/definitions:/app swaggerapi/swagger-ui:v3.36.1"
   },
   "engines": {
     "npm": "8.x.x",
