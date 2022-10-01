@@ -40,7 +40,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^28.1.0",
     "prettier": "^2.6.2",
-    "sequelize-cli": "^6.4.1",
+    "sequelize-cli": "^6.5.1",
     "serverless": "^3.19.0",
     "serverless-esbuild": "^1.30.0",
     "serverless-offline": "^9.2.6",
