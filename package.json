@@ -43,7 +43,7 @@
     "sequelize-cli": "^6.4.1",
     "serverless": "^3.19.0",
     "serverless-esbuild": "^1.30.0",
-    "serverless-offline": "^9.2.6",
+    "serverless-offline": "^11.0.1",
     "serverless-plugin-typescript": "^2.1.2",
     "ts-jest": "^28.0.4",
     "ts-node": "^10.8.1",
