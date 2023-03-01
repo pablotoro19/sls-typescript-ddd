@@ -56,7 +56,7 @@
     "dotenv": "^16.0.0",
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.9.0"
+    "sequelize": "^6.29.0"
   },
   "author": "Pablo Toro (pablotoro.e@gmail.com)"
 }
